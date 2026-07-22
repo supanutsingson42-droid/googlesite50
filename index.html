@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>markdev — ศุภณัฐ สิงห์สอน</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="mobile-bar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span class="brand-name">mark<span class="dim">dev</span></span>
+      </div>
+      <button class="mobile-toggle" onclick="document.querySelector('nav.tree').classList.toggle('open')">menu</button>
+    </div>
+    <div class="brand" style="display:none;" id="desktop-brand"></div>
+
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">mark<span class="dim">dev</span></span>
+    </div>
+
+    <div class="tree-label">~/markdev</div>
+    <nav class="tree">
+      <a class="tree-item active" href="index.html"><span class="bracket">▸</span> home.html</a>
+
+      <a class="tree-item" href="about.html"><span class="bracket">▸</span> ข้อมูลส่วนตัว</a>
+      <div class="tree-sub">
+        <a class="tree-item" href="about.html"><span class="bracket">–</span> ประวัติส่วนตัว</a>
+        <a class="tree-item" href="education.html"><span class="bracket">–</span> ประวัติการศึกษา</a>
+      </div>
+
+      <a class="tree-item" href="portfolio.html"><span class="bracket">▸</span> ผลงาน</a>
+      <div class="tree-sub">
+        <a class="tree-item" href="certificates.html"><span class="bracket">–</span> เกียรติบัตร</a>
+        <a class="tree-item" href="activities.html"><span class="bracket">–</span> รูปกิจกรรม</a>
+      </div>
+    </nav>
+
+    <div class="sidebar-foot">
+      <span>build: sakon nakhon, th</span>
+      <a href="https://instagram.com/suphanut_m6" target="_blank" rel="noopener">ig · suphanut_m6</a>
+      <a href="https://facebook.com/suphanut" target="_blank" rel="noopener">fb · suphanut</a>
+    </div>
+  </aside>
+
+  <main>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="terminal-dot red"></span>
+        <span class="terminal-dot yellow"></span>
+        <span class="terminal-dot green"></span>
+        <span class="terminal-title">mark@sakonnakhon: ~</span>
+      </div>
+      <div class="terminal-body" id="typed"></div>
+    </div>
+
+    <div class="eyebrow">welcome</div>
+    <h1>สวัสดีครับ ผมมาร์ค</h1>
+    <p class="lede">
+      นักศึกษา ปวส.1 วิทยาลัยเทคนิคสว่างแดนดิน จ.สกลนคร ชอบเล่นเกม เตะบอล และสร้างเว็บไซต์
+      หน้านี้คือพื้นที่รวมประวัติ การศึกษา และผลงานของผมครับ
+    </p>
+
+    <div class="tag-row">
+      <span class="hobby-tag">เล่นเกม</span>
+      <span class="hobby-tag">เตะบอล</span>
+      <span class="hobby-tag">สร้างเว็บ</span>
+    </div>
+
+    <h2>เริ่มดูจากตรงไหนดี</h2>
+    <div class="grid-2">
+      <a class="card" href="about.html">
+        <div class="card-label">01 · ข้อมูลส่วนตัว</div>
+        <div class="card-value">ประวัติส่วนตัวและประวัติการศึกษา</div>
+      </a>
+      <a class="card" href="portfolio.html">
+        <div class="card-label">02 · ผลงาน</div>
+        <div class="card-value">เกียรติบัตรและรูปกิจกรรมที่ผ่านมา</div>
+      </a>
+    </div>
+
+    <div class="contact-strip">
+      <div class="contact-item"><span class="k">ig</span> <a href="https://instagram.com/suphanut_m6" target="_blank" rel="noopener">suphanut_m6</a></div>
+      <div class="contact-item"><span class="k">fb</span> <a href="https://facebook.com/suphanut" target="_blank" rel="noopener">suphanut</a></div>
+    </div>
+  </main>
+
+</div>
+
+<script>
+const lines = [
+  { p: 'mark@sakonnakhon', o: 'whoami', out: null },
+  { p: '', o: null, out: 'ศุภณัฐ สิงห์สอน (มาร์ค) · 18 ปี · สกลนคร' },
+  { p: 'mark@sakonnakhon', o: 'cat status.txt', out: null },
+  { p: '', o: null, out: 'กำลังศึกษา ปวส.1 วิทยาลัยเทคนิคสว่างแดนดิน', accent: true },
+  { p: 'mark@sakonnakhon', o: 'echo $INTERESTS', out: null },
+  { p: '', o: null, out: 'เล่นเกม, เตะบอล, สร้างเว็ป' },
+];
+
+const container = document.getElementById('typed');
+let li = 0;
+
+function typeLine() {
+  if (li >= lines.length) {
+    const cur = document.createElement('div');
+    cur.className = 'terminal-line';
+    cur.innerHTML = '<span class="prompt">mark@sakonnakhon:~$</span><span class="cursor"></span>';
+    container.appendChild(cur);
+    return;
+  }
+  const item = lines[li];
+  const row = document.createElement('div');
+  row.className = 'terminal-line';
+  if (item.o !== null) {
+    row.innerHTML = '<span class="prompt">mark@sakonnakhon:~$</span><span class="out"></span>';
+    container.appendChild(row);
+    const target = row.querySelector('.out');
+    let ci = 0;
+    const iv = setInterval(() => {
+      target.textContent += item.o[ci];
+      ci++;
+      if (ci >= item.o.length) { clearInterval(iv); li++; setTimeout(typeLine, 250); }
+    }, 28);
+  } else {
+    row.innerHTML = `<span class="out${item.accent ? ' accent' : ''}">${item.out}</span>`;
+    container.appendChild(row);
+    li++;
+    setTimeout(typeLine, 350);
+  }
+}
+typeLine();
+</script>
+
+</body>
+</html>
